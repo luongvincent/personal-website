@@ -1,0 +1,21 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.suo
+*.user
+
+# Local env / secrets (never commit these)
+.env
+.env.local
+
+# If you later add a build tool
+node_modules/
+dist/
+.cache/
+
+# Data
+data/
