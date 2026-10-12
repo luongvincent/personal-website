@@ -1,5 +1,4 @@
 import { CONTENT } from '../content.js';
-import FadeIn from './FadeIn.jsx';
 
 export default function Experience() {
   return (
@@ -11,7 +10,7 @@ export default function Experience() {
           {CONTENT.experience.map((entry, i) =>
             entry.roles ? (
               // Grouped (multi-role) entry — LinkedIn style
-              <FadeIn key={i}>
+              <div key={i}>
                 <div className="exp-group">
                   <div className="exp-header">
                     <span className="exp-role">{entry.roles[0].title}</span>
@@ -39,10 +38,10 @@ export default function Experience() {
                     ))}
                   </div>
                 </div>
-              </FadeIn>
+              </div>
             ) : (
               // Single-role entry
-              <FadeIn key={i}>
+              <div key={i}>
                 <div className="exp-header">
                   <span className="exp-role">{entry.role}</span>
                   <span className="exp-org">
@@ -55,7 +54,7 @@ export default function Experience() {
                 <ul className="exp-bullets">
                   {entry.bullets.map((b, j) => <li key={j}>{b}</li>)}
                 </ul>
-              </FadeIn>
+              </div>
             )
           )}
         </div>

@@ -1,5 +1,4 @@
 import { CONTENT } from '../content.js';
-import FadeIn from './FadeIn.jsx';
 
 export default function Education() {
   return (
@@ -8,7 +7,7 @@ export default function Education() {
         <h2 id="education-heading" className="section-title">Education</h2>
         <div className="edu-list">
           {CONTENT.education.map((edu, i) => (
-            <FadeIn key={i} className="edu-item">
+            <div key={i} className="edu-item">
 
               <p className="edu-degree">{edu.degree}</p>
               <p className="edu-school">
@@ -36,7 +35,11 @@ export default function Education() {
                     {edu.awards.map((a, j) => (
                       <div key={j} className="edu-award">
                         <span className="edu-award__place">{a.place}</span>
-                        <span className="edu-award__title">{a.title}</span>
+                        <span className="edu-award__title">
+                          {a.url
+                            ? <a href={a.url} target="_blank" rel="noopener noreferrer">{a.title}</a>
+                            : a.title}
+                        </span>
                         <span className="edu-award__meta">{a.org} · {a.year}</span>
                       </div>
                     ))}
@@ -44,7 +47,7 @@ export default function Education() {
                 </div>
               )}
 
-            </FadeIn>
+            </div>
           ))}
         </div>
       </div>

@@ -1,5 +1,5 @@
 import { CONTENT } from '../content.js';
-import FadeIn from './FadeIn.jsx';
+import Metric from './Metric.jsx';
 import { IconGithub, IconExternal } from './Icons.jsx';
 
 export default function Projects() {
@@ -9,7 +9,8 @@ export default function Projects() {
         <h2 id="projects-heading" className="section-title">Projects</h2>
         <div className="project-grid">
           {CONTENT.projects.map((proj, i) => (
-            <FadeIn key={i} as="article" className="project-card">
+            <article key={i} className="project-card">
+              {proj.metric && <Metric metric={proj.metric} />}
               <h3 className="project-card__title">{proj.title}</h3>
               <p className="project-card__desc">{proj.description}</p>
 
@@ -19,7 +20,7 @@ export default function Projects() {
                 ))}
               </div>
 
-              {(proj.links.repo || proj.links.demo) && (
+              {(proj.links.repo || proj.links.report || proj.links.demo) && (
                 <div className="project-card__links">
                   {proj.links.repo && (
                     <a
@@ -30,6 +31,17 @@ export default function Projects() {
                       aria-label={`${proj.title} source code on GitHub`}
                     >
                       <IconGithub /> Repo
+                    </a>
+                  )}
+                  {proj.links.report && (
+                    <a
+                      href={proj.links.report}
+                      className="project-card__link"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${proj.title} written report`}
+                    >
+                      <IconExternal /> Report
                     </a>
                   )}
                   {proj.links.demo && (
@@ -45,7 +57,7 @@ export default function Projects() {
                   )}
                 </div>
               )}
-            </FadeIn>
+            </article>
           ))}
         </div>
 
