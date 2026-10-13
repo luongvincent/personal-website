@@ -1,6 +1,6 @@
 import { CONTENT } from '../content.js';
 import { IconGithub, IconLinkedin, IconMail, IconArrow } from './Icons.jsx';
-import avatarSrc from '../../data/images/website.jpg';
+import avatarSrc from '../assets/website.jpg';
 
 // "Jul 2026 — Present · Vancouver, BC" -> "Jul 2026 — Present"
 const period = (e) => (e.dates ? e.dates.split(' · ')[0] : e.duration);
