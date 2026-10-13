@@ -28,7 +28,7 @@ export const CONTENT = {
     tagline:  "I build NLP systems, ML pipelines, and data infrastructure that turn raw signals into real product impact.",
     cta:      { label: "View My Projects", href: "#projects" },
     links: {
-      github:   "https://github.com/Vondent",
+      github:   "https://github.com/luongvincent",
       linkedin: "https://linkedin.com/in/luongvincent",
       email:    "mailto:luongvincent3@gmail.com",
     },
@@ -252,7 +252,7 @@ export const CONTENT = {
     blurb:      "Open to new grad roles, internships, and collaborations. Best way to reach me is by email.",
     email:      "luongvincent3@gmail.com",
     links: {
-      github:   "https://github.com/Vondent",
+      github:   "https://github.com/luongvincent",
       linkedin: "https://linkedin.com/in/luongvincent",
     },
     footerNote: "Vincent Luong · Built with React & Vite.",
