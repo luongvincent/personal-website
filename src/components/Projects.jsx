@@ -20,6 +20,27 @@ export default function Projects() {
                 ))}
               </div>
 
+              {proj.bullets && (
+                <details className="project-card__details">
+                  <summary>Details</summary>
+                  <ul className="project-card__bullets">
+                    {proj.bullets.map((b, k) => <li key={k}>{b}</li>)}
+                  </ul>
+                  {proj.charts?.map((c, k) => (
+                    <div key={k} className="mini-chart">
+                      <p className="mini-chart__title">{c.title}</p>
+                      {c.rows.map((r, m) => (
+                        <div key={m} className="mini-chart__row">
+                          <span className="mini-chart__label">{r.label}</span>
+                          <span className="mini-chart__track"><span style={{ width: `${r.fill * 100}%` }} /></span>
+                          <span className="mini-chart__val">{r.text}</span>
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                </details>
+              )}
+
               {(proj.links.repo || proj.links.report || proj.links.demo) && (
                 <div className="project-card__links">
                   {proj.links.repo && (

@@ -918,3 +918,28 @@ button.hero__cta:hover { background: var(--accent-hover); }
   .exp-dates      { margin-left: 0; }
   .contact-social { gap: var(--sp-4); }
 }
+
+/* odd project count: let the last card span both columns instead of orphaning */
+@media (min-width: 1020px) {
+  .project-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+
+/* project details + mini bar charts */
+.project-card__details summary {
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--accent);
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+.project-card__details summary:hover { color: var(--accent-hover); }
+.project-card__bullets { padding-left: var(--sp-5); display: flex; flex-direction: column; gap: var(--sp-2); }
+.project-card__bullets li { list-style: disc; font-size: 0.9375rem; color: var(--text-secondary); line-height: 1.65; }
+.mini-chart { margin-top: var(--sp-4); display: flex; flex-direction: column; gap: var(--sp-2); }
+.mini-chart__title { font-size: 0.8125rem; font-weight: 600; color: var(--text-muted); }
+.mini-chart__row { display: grid; grid-template-columns: minmax(90px, 40%) 1fr 3.5rem; align-items: center; gap: var(--sp-3); font-size: 0.8125rem; color: var(--text-secondary); }
+.mini-chart__track { height: 8px; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+.mini-chart__track span { display: block; height: 100%; background: var(--accent); }
+.mini-chart__val { font-family: var(--font-data); text-align: right; }

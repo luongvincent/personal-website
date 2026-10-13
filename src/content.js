@@ -17,7 +17,7 @@ export const CONTENT = {
   // ── Navigation ─────────────────────────────────────────── //
   nav: {
     links:     ["Experience", "Projects", "Education", "Contact"],
-    resumeUrl: "/resume.pdf",
+    resumeUrl: "",
   },
 
   // ── Hero ───────────────────────────────────────────────── //
@@ -48,7 +48,7 @@ export const CONTENT = {
     {
       role:   "Data Scientist",
       org:    "Samsung Research",
-      logo:    "/logos/samsung.png",
+      logo:    import.meta.env.BASE_URL + "logos/samsung.png",
       url:    "https://research.samsung.com/srca",
       dates:  "Sep 2026 — Present · Vancouver, BC",
       bullets: [
@@ -61,7 +61,7 @@ export const CONTENT = {
     {
       role:   "Data Scientist",
       org:    "Later",
-      logo:    "/logos/later.jpg",
+      logo:    import.meta.env.BASE_URL + "logos/later.jpg",
       url:    "https://later.com",
       dates:  "Jan 2026 — Aug 2026 · Vancouver, BC",
       bullets: [
@@ -74,7 +74,7 @@ export const CONTENT = {
     {
       role:   "Research Analyst",
       org:    "Government of Canada",
-      logo:    "/logos/gov.jpg",
+      logo:    import.meta.env.BASE_URL + "logos/gov.jpg",
       url:    "https://www.canada.ca",
       dates:  "May 2025 — Apr 2026 · Brandon, MB",
       bullets: [
@@ -85,7 +85,7 @@ export const CONTENT = {
     },
     {
       org:      "Cineplex",
-      logo:    "/logos/cineplex.jpg",
+      logo:    import.meta.env.BASE_URL + "logos/cineplex.jpg",
       url:      "https://cineplex.com",
       duration: "1 yr",
       location: "Langley, BC",
@@ -112,20 +112,16 @@ export const CONTENT = {
   // ── Projects ───────────────────────────────────────────── //
   projects: [
     {
-      title:       "TFT Set 17 FAQ Chatbot",
-      metric:      { display: "89%",     label: "answer faithfulness",            fill: 0.89 },
-      description: "A production-deployed Corrective RAG chatbot answering TFT gameplay questions over 686 documents. Achieved 89% answer faithfulness, 78% context precision, and a 64% latency reduction over a standard RAG baseline.",
-      tags:        ["Python", "LangChain", "LangGraph", "Pinecone", "Groq", "FastAPI"],
-      links: {
-        repo: "https://github.com/luongvincent/tft-set17-faq-chatbot",
-        demo: "https://tft-set17-faq-chatbot.vercel.app/",
-      },
-    },
-    {
-      title:       "Criteo Causal Inference",
-      metric:      { display: "14M", label: "users in a randomized ad experiment" },
-      description: "Causal analysis of Criteo's uplift experiment: checked randomization (sample ratio mismatch, covariate balance), cross-checked the ATE with three covariate-adjusted estimators, and compared S-, T-, X- and DR-learners by Qini curves and decile effects. Found most of the value in the top ~10% of users, and split-sample testing showed the policy cutoff was never stable.",
-      tags:        ["Python", "scikit-learn", "econml", "Causal Inference", "Uplift Modeling"],
+      title:       "Criteo Uplift: Ad Incrementality",
+      metric:      { display: "48x", label: "ad effectiveness overstatement caught" },
+      description: "Causal analysis of a 14M-user randomized ad experiment. Caught a 48x overstatement of ad effectiveness and a hidden assignment bias that shifted the effect ~25%, then used doubly-robust and X-learner uplift models to find the top 10% of users driving most incremental value (7x higher conversion lift).",
+      tags:        ["Python", "econml", "Causal Inference", "Uplift Modeling", "A/B Testing"],
+      bullets: [
+        "Verified randomization first: sample ratio mismatch and covariate balance checks.",
+        "Cross-checked the ATE with three covariate-adjusted estimators and compared exposure- vs assignment-based estimates.",
+        "Compared S-, T-, X- and DR-learners by Qini curves and decile effects.",
+        "Split-sample testing showed the policy cutoff was never stable, so the ranking is more trustworthy than any single threshold.",
+      ],
       links: {
         repo: "https://github.com/luongvincent/criteo-causal-inference",
         report: "https://github.com/luongvincent/criteo-causal-inference/blob/main/reports/analysis.md",
@@ -133,21 +129,47 @@ export const CONTENT = {
       },
     },
     {
-      title:       "Breast Cancer Treatment Response Prediction",
-      metric:      { display: "0.862", label: "cross-validated AUC, clinical + image", fill: 0.862 },
-      description: "2nd place at the T-CAIREM Health Datathon. Predicted pathological complete response to chemotherapy from pre-treatment biopsy slides and clinical variables, using frozen Phikon pathology-foundation-model embeddings on 89 patients. Image features alone carried signal (0.704 AUC) but added little over clinical variables, and the write-up reports that honestly with bootstrap confidence intervals.",
-      tags:        ["Phikon", "Digital Pathology", "Logistic Regression", "PCA", "Bootstrap CIs"],
+      title:       "TFT Set 17 FAQ Chatbot",
+      metric:      { display: "89%",     label: "answer faithfulness",            fill: 0.89 },
+      description: "A Corrective RAG assistant over 686 unstructured documents. Reached 89% answer faithfulness and 78% context precision on 30 domain questions (RAGAS), and cut p95 latency 64% (3.1s to 1.1s) with an LRU cache plus document grading and query rewriting.",
+      tags:        ["LangChain", "LangGraph", "Pinecone", "Groq", "Playwright", "BeautifulSoup"],
+      bullets: [
+        "Scraped gameplay docs with Playwright + BeautifulSoup and indexed 686 documents in Pinecone.",
+        "A LangGraph loop grades retrieved documents and rewrites the query when they are weak (CRAG), on Groq LLaMA 3.3 70B.",
+        "Evaluated with RAGAS against a standard-RAG baseline; deployed with a FastAPI backend.",
+      ],
+      charts: [
+        { title: "RAGAS scores", rows: [
+          { label: "Answer faithfulness", fill: 0.89, text: "89%" },
+          { label: "Context precision",   fill: 0.78, text: "78%" },
+          { label: "Context recall",      fill: 0.60, text: "60%" },
+        ] },
+        { title: "p95 latency", rows: [
+          { label: "Standard RAG", fill: 1,     text: "3.1s" },
+          { label: "CRAG + cache", fill: 1.1/3.1, text: "1.1s" },
+        ] },
+      ],
       links: {
-        repo: "https://github.com/luongvincent/health-datathon",
-        report: "https://github.com/luongvincent/health-datathon/blob/main/Predicting_pathological_complete_response_from_pre_treatment_breast_biopsy_slides_with_an_open_pathology_foundation_mode.pdf",
-        demo: "",
+        repo: "https://github.com/luongvincent/tft-set17-faq-chatbot",
+        demo: "https://tft-set17-faq-chatbot.vercel.app/",
       },
     },
     {
-      title:       "Stock Price Forecasting",
+      title:       "Time Series Stock Forecasting",
       metric:      { display: "51%",     label: "lower TSLA error vs. naive",     fill: 0.51 },
-      description: "Automated ELT pipelines feeding a Prophet + Auto-ARIMA ensemble to forecast daily prices for 5 tickers. Reduced TSLA forecast error 51% over a naive baseline, reaching 6.9% RMSE-to-price on a 30-day test set.",
-      tags:        ["Python", "Airflow", "Prophet", "ARIMA", "Streamlit", "statsmodels"],
+      description: "Airflow ETL pipeline for 5 tickers feeding a Prophet + Auto-ARIMA ensemble. Cut TSLA forecast error 51% vs a random-walk baseline (6.9% RMSE-to-price), with a 10% RMSE gate that blocks degraded models from deployment.",
+      tags:        ["Airflow", "ETL", "Prophet", "ARIMA", "yfinance", "Streamlit", "statsmodels"],
+      bullets: [
+        "An Airflow DAG pulls yfinance prices for 5 tickers and refits Prophet + Auto-ARIMA models.",
+        "Evaluated on a 30-day test set against a random-walk baseline.",
+        "A 10% RMSE gate blocks degraded models from deployment; results are served in a Streamlit app.",
+      ],
+      charts: [
+        { title: "TSLA RMSE-to-price (lower is better)", rows: [
+          { label: "Random walk (derived from 51% cut)", fill: 1,         text: "~14.1%" },
+          { label: "Prophet + ARIMA",                   fill: 0.49,      text: "6.9%" },
+        ] },
+      ],
       links: {
         repo: "https://github.com/luongvincent/stock-price-forecast",
         demo: "https://stock-price-forecast-c6lazafwgd6aocc7qzdj9o.streamlit.app",
@@ -156,40 +178,37 @@ export const CONTENT = {
     {
       title:       "AI Face Detection",
       metric:      { display: "0.957",   label: "AUC on 40,000+ images",          fill: 0.957 },
-      description: "A cloud-native microservice classifying real vs. AI-generated faces in real time. Attained 88.7% accuracy and 0.957 AUC across 40,000+ images via transfer learning on ResNet50, with 163ms p95 CPU inference.",
-      tags:        ["Python", "PyTorch", "TensorFlow/Keras", "Flask", "Plotly"],
+      description: "Real vs. AI-generated face classifier. Attained 0.957 AUC (88.7% accuracy) on 40K+ images with 163ms p95 CPU inference, by fine-tuning ResNet50 via transfer learning and optimizing the pipeline with prefetching and 12-thread parallelism.",
+      tags:        ["TensorFlow/Keras", "PyTorch", "React", "FastAPI", "Vercel"],
+      bullets: [
+        "Fine-tuned ResNet50 via transfer learning on 40K+ real vs AI-generated faces.",
+        "Prefetching and 12-thread parallelism bring inference to 163ms p95 on CPU.",
+        "Served as a microservice (FastAPI) behind a React front end on Vercel.",
+      ],
+      charts: [
+        { title: "Test performance", rows: [
+          { label: "AUC",      fill: 0.957, text: "0.957" },
+          { label: "Accuracy", fill: 0.887, text: "88.7%" },
+        ] },
+      ],
       links: {
         repo: "https://github.com/luongvincent/ai-detection",
         demo: "https://ai-detection-coral.vercel.app/",
       },
     },
     {
-      title:       "Customer Churn Prediction",
-      metric:      { display: "7,000+",  label: "Telco customer records" },
-      description: "Predictive classification system for customer churn over 7,000+ Telco records. Implemented threshold tuning to optimize business decisions and built an interactive Flask + Plotly dashboard with SHAP explainability deployed on Render.",
-      tags:        ["Python", "scikit-learn", "XGBoost", "Flask", "Plotly", "SHAP"],
+      title:       "Breast Cancer Chemotherapy Response Prediction",
+      metric:      { display: "2nd",     label: "T-CAIREM National Health Datathon" },
+      description: "Predicted pathological complete response to chemotherapy from pre-treatment biopsy slides and clinical data, using a frozen Phikon pathology-foundation-model pipeline on 89 patients. Image features alone carried signal (0.704 AUC), and the write-up reports that honestly with bootstrap confidence intervals.",
+      tags:        ["Computational Pathology", "Phikon", "Multimodal ML", "SHAP", "OpenSlide"],
+      bullets: [
+        "Extracted frozen Phikon embeddings from pre-treatment biopsy slides and combined them with clinical variables for 89 patients.",
+        "Image features alone reached 0.704 AUC but added little over clinical variables; the write-up reports this with bootstrap confidence intervals.",
+        "Placed 2nd at the T-CAIREM National Health Datathon.",
+      ],
       links: {
-        repo: "https://github.com/luongvincent/customer-churn-prediction",
-        demo: "https://customer-churn-prediction-1dmu.onrender.com",
-      },
-    },
-    {
-      title:       "Customer Segmentation",
-      metric:      { display: "556,909", label: "customer records segmented" },
-      description: "Segmented 556,909 e-commerce customer records using K-Means clustering with Isolation Forest for outlier detection and PCA for dimensionality reduction; transformed clusters into a product recommendation system.",
-      tags:        ["Python", "scikit-learn", "K-Means", "PCA"],
-      links: {
-        repo: "https://github.com/luongvincent/customer-segmentation",
-        demo: "",
-      },
-    },
-    {
-      title:       "UBC First Byte — Case Competition",
-      metric:      { display: "3rd",     label: "of 40 teams" },
-      description: "Placed 3rd out of 40 teams in a national data analytics competition judged by professionals from Microsoft, Meta, Deloitte, EY, and EA. Analysed stadium revenue data to support a $150M turnaround strategy.",
-      tags:        ["Python", "Altair", "Matplotlib", "Power BI"],
-      links: {
-        repo: "https://github.com/luongvincent/UBC-Bolt-First-Byte-2025",
+        repo: "https://github.com/luongvincent/health-datathon",
+        report: "https://github.com/luongvincent/health-datathon/blob/main/Predicting_pathological_complete_response_from_pre_treatment_breast_biopsy_slides_with_an_open_pathology_foundation_mode.pdf",
         demo: "",
       },
     },
