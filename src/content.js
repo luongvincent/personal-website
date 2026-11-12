@@ -52,10 +52,10 @@ export const CONTENT = {
       url:    "https://research.samsung.com/srca",
       dates:  "Sep 2026 — Present · Vancouver, BC",
       bullets: [
-        "Enabled a Samsung-hosted case competition without exposing real user health data, measured by matched marginals and Spearman correlations, by sampling Gaussian copulas across 140 tables in 13 clusters with P1-P99 bounds.",
-        "Built evidence-based Galaxy Watch and Galaxy Ring feature proposals for Samsung Health's large active user base by turning 30+ peer-reviewed studies on wearable health sensing into product-ready concepts.",
-        "Earned buy-in from internal stakeholders by translating findings from 15+ health studies into business-focused, research-backed slides.",
-        "Gave the entire Samsung Health team a shared view of data quality, measured by documented coverage of every valid table, by engineering table and data quality features and visualizing feature distributions to inform product proposals.",
+        "Unblocked Claude for an 8-person DS/DA team on previously off-limits GCP health data by building an MCP layer serving only aggregated features with clear definitions, powering monthly product recommendations with no raw data exposed.",
+        "Shaped Galaxy Watch and Ring feature proposals for Samsung Health by synthesizing 30+ peer-reviewed wearable studies into business insights and slide decks for internal R&D stakeholders, earning their buy-in on product direction.",
+        "Enabled a Samsung-hosted case competition with zero real user health data exposed by generating synthetic datasets in PySpark from Gaussian copulas across 140 tables in 13 clusters, validated by matched marginals and Spearman correlations.",
+        "Defined data inclusion criteria for Samsung Health modeling by engineering table-level quality features and profiling distributions across 140+ tables, flagging which data to include or exclude for each product proposal.",
       ],
     },
     {
@@ -65,10 +65,10 @@ export const CONTENT = {
       url:    "https://later.com",
       dates:  "Jan 2026 — Aug 2026 · Vancouver, BC",
       bullets: [
-        "Led a C-suite-selected Share of Voice initiative across 4 platforms for 7M+ users; scope expanded to cross-functional team with dedicated engineering and analytics support, with findings deployed as internal product features and presented at SXSW 2026.",
-        "Shipped to production a language detection system, measured by creator search precision rising from 40% to ~99% on language-filtered queries, by building NLP/deep learning models with preprocessing and feature extraction across 5M+ records.",
-        "Cut $2K+ in annual OpenAI API costs at parity accuracy, measured by token spend and eval against GPT-generated labels, by fine-tuning XLM-RoBERTa for brand classification and serving it as an in-house AWS endpoint (S3, Lambda, ECR) over 3M+ records.",
-        "Owned ML systems end-to-end, from preprocessing and modeling to deployment and production scaling, by building CI/CD (CircleCI/ArgoCD) pipelines and packaging services with Helm charts.",
+        "Improved creator search relevance for brands by shipping NLP language detection across 5M+ records, raising precision on language-filtered queries from 40% to ~99% and fixing results that were mostly wrong-language.",
+        "Replaced an OpenAI LLM with a fine-tuned XLM-RoBERTa model for brand classification over 3M+ records, matching GPT-labeled accuracy at $2K+ lower annual cost, served as an in-house AWS endpoint (S3, Lambda, ECR).",
+        "Turned a C-suite Share of Voice question into shipped internal product features by leading cross-functional analysis with Engineering and Analytics across 4 platforms and 7M+ users, with findings presented at SXSW 2026.",
+        "Owned ML systems end to end, from preprocessing and modeling through deployment and production scaling, by building CI/CD pipelines (CircleCI, ArgoCD) and Helm-packaged services that let models ship reliably to production.",
       ],
     },
     {
@@ -78,9 +78,10 @@ export const CONTENT = {
       url:    "https://www.canada.ca",
       dates:  "May 2025 — Apr 2026 · Brandon, MB",
       bullets: [
-        "Built and maintained interactive React dashboards on crop production and energy cost across 44 systems, partnering with federal stakeholders to drive funding decisions that secured continued budget and expanded programs to 189,000+ farmers.",
+        "Informed federal funding decisions by building React dashboards on crop production and energy cost across 44 systems with federal stakeholders, supporting a program that secured continued budget and expanded to 189,000+ farmers.",
         "Built mixed-effects models with Tukey HSD post-hoc tests to identify significant differences (p < 0.001) across 100+ observations from 44 production systems, informing cost-benefit recommendations for federal policy.",
         "Conducted literature review of energy efficiency and crop production research, informing statistical methodology and experimental design for federal analysis; contributions acknowledged in upcoming government research publication.",
+        "Guided AAFC research program budget decisions on fertilizer use by translating mixed-effects results into reports and presentations on the cost and profitability of fertilizer treatments for federal stakeholders.",
       ],
     },
     {
@@ -111,6 +112,28 @@ export const CONTENT = {
 
   // ── Projects ───────────────────────────────────────────── //
   projects: [
+    {
+      title:       "Atlas: AI Earnings Call Explainer",
+      metric:      { display: "93.8%", label: "answer correctness with CAG (vs. 62.5% RAG)", fill: 0.938 },
+      description: "Turns earnings call transcripts into plain-language explanations for beginner investors, with every cited quote checked against the transcript. A hand-verified RAG vs. cache-augmented generation (CAG) experiment raised correctness from 62.5% to 93.8% at 6x the tokens, tracing RAG's errors to retrieval misses.",
+      tags:        ["LangChain", "Pinecone", "Groq", "MLflow", "FastAPI", "Next.js"],
+      bullets: [
+        "Grounded Q&A over ~1,600 transcript chunks: speaker-level chunking with section metadata, local embeddings in Pinecone, and retrieval tuned to filter low-information turns and reserve Q&A context.",
+        "Cut hallucinated sources by verifying every LLM-cited quote against the transcript (one resample, then refusal), traced in MLflow.",
+        "Eval: 24 answerable + 6 out-of-scope questions, LLM judge, bootstrap CIs; both approaches declined all 6 out-of-scope questions.",
+        "Tailors tone and depth to a risk profile from a 5-question onboarding, plus price charts, risk stats and ETF holdings for 15 stocks and 30 ETFs.",
+      ],
+      charts: [
+        { title: "Answer correctness (LLM-judged, n=24)", rows: [
+          { label: "RAG",                   fill: 0.625, text: "62.5%" },
+          { label: "Full-transcript (CAG)", fill: 0.938, text: "93.8%" },
+        ] },
+      ],
+      links: {
+        repo: "https://github.com/luongvincent/atlas",
+        demo: "",
+      },
+    },
     {
       title:       "Criteo Uplift: Ad Incrementality",
       metric:      { display: "48x", label: "ad effectiveness overstatement caught" },
